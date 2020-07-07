@@ -10,12 +10,24 @@
                 height: 200px;
                 display: flex;
                 flex-wrap: wrap;
+                border-style: solid;
             }
 
             .grid div {
                 width: 20px;
                 height: 20px;
-                border: 1px solid rgba(0, 0, 0, 0.8);
+            }
+
+            .player {
+                background-color: blue;
+            }
+
+            .door {
+                background-color: green;
+            }
+
+            .monster {
+                background-color: red;
             }
         </style>
     </head>
@@ -123,11 +135,17 @@
             <div></div>
             <div></div>
             <div></div>
-            
+            <div></div>
+
         </div>
 
-        <script>
+        <!-- Get locations -->
+        <script type="text/javascript">
+            const player = `{{ player }}`;
+            const door = `{{ door }}`;
+            const monster = `{{ monster }}`;
 
         </script>
+        <script src="{{url_for('static', filename='app.js')}}"></script>
     </body>
 </html>
