@@ -13,14 +13,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
        if (e.keyCode === 39) {
             var z = playerIndex.toString()
+            // console.log(squares[playerIndex]);
             // console.log(z);
+            squares[playerIndex].classList.remove('player')
             if (parseInt(z[1]) < 9 || (z.length == 1 && parseInt(z) < 9)) {
-                squares[playerIndex].classList.remove('player')
-                playerIndex += 1
+
+                playerIndex = parseInt(playerIndex) + 1
             }
-            console.log(playerIndex);
+            // console.log(playerIndex);
        }
        else if (e.keyCode === 38) {
+
            squares[playerIndex].classList.remove('player')
          // Press up arrow
          var corr = playerIndex.toString()
@@ -30,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
              var z =  y.toString() + corr[1]
              playerIndex = parseInt(z)
          }
-         console.log(playerIndex);
+         // console.log(playerIndex);
 
        }
        else if (e.keyCode === 37) {
@@ -40,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
              squares[playerIndex].classList.remove('player')
              playerIndex -= 1
          }
-         console.log(playerIndex);
+         // console.log(playerIndex);
        }
        else if (e.keyCode === 40) {
            squares[playerIndex].classList.remove('player')
@@ -57,11 +60,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 playerIndex = parseInt(z)
              }
          }
-         console.log(playerIndex);
+         // console.log(playerIndex);
 
        }
 
-       squares[playerIndex].classList.add('player')
+       if ( squares[playerIndex]) {
+           squares[playerIndex].classList.add('player')
+       }
 
        // console.log(playerIndex);
 

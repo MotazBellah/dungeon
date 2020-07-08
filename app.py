@@ -12,11 +12,27 @@ CELL = [i for i in range(100)]
 def index():
     # Get random locations for player, door and monster
     player, door, monster = random.sample(CELL, 3)
+    print(shortest_path(player, door, monster))
     return render_template('index.html', player=player, door=door, monster=monster)
 
 
-def shortest_path(source, target):
-    start = Node(state=source, parent=None, action=None)
+def shortest_path(source, target, monster):
+
+    source = str(source)
+    if len(source) == 1:
+        source = '0' + source
+
+    row_src, col_src = tuple(source)
+    x_src, y_src = int(row_src), int(col_src)
+
+    target = str(target)
+    if len(target) == 1:
+        target = '0' + target
+
+    row_trgt, col_trgt = tuple(target)
+    x_trgt, y_trgt = int(row_trgt), int(col_trgt)
+
+    start = Node(state=(x_src, y_src), parent=None, action=None)
     frontier = QueueFrontier()
     frontier.add(start)
 
@@ -28,7 +44,7 @@ def shortest_path(source, target):
 
         node = frontier.remove()
 
-        if node.state == target:
+        if node.state == (x_trgt, y_trgt):
             actions = []
             cells = []
             while node.parent is not None:
@@ -42,7 +58,7 @@ def shortest_path(source, target):
 
         explored.add(node.state)
 
-        for action, state in neighbors(node.state):
+        for action, state in neighbors(node.state, monster):
             if not frontier.contains_state(state) and state not in explored:
                 child = Node(state=state, parent=node, action=action)
                 frontier.add(child)
@@ -56,13 +72,14 @@ def neighbors(state, monster):
     row_mons, col_mons = tuple(monster)
     x_mons, y_mons = int(row_mons), int(col_mons)
 
-    state = str(state)
-    if len(state) == 1:
-        state = '0' + state
+    # state = str(state)
+    # if len(state) == 1:
+    #     state = '0' + state
+    # print(state)
+    # row, col = tuple(state)
+    # x, y = int(row), int(col)
+    x, y = state
 
-    row, col = tuple(state)
-    x, y = int(row), int(col)
-    
     candidates = [
             ("left", (x, y - 1)),
             ("right", (x, y + 1)),
@@ -72,7 +89,7 @@ def neighbors(state, monster):
     neighbors_cells = set()
 
     for action, (r,c) in candidates:
-        if 0 <= r < 9 and 0 <= c < 9:
+        if 0 <= r < 9 and 0 <= c < 9 and (r, c) != (x_mons, y_mons):
             neighbors_cells.add((action, (r,c)))
 
     return neighbors_cells
