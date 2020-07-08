@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 import random
+from graph import StackFrontier, QueueFrontier
 
 app = Flask(__name__)
 app.secret_key = 'super secret key'
