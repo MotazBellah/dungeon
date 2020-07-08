@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 squares[playerIndex].classList.remove('player')
                 playerIndex += 1
             }
+            console.log(playerIndex);
        }
        else if (e.keyCode === 38) {
            squares[playerIndex].classList.remove('player')
@@ -29,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
              var z =  y.toString() + corr[1]
              playerIndex = parseInt(z)
          }
+         console.log(playerIndex);
 
        }
        else if (e.keyCode === 37) {
@@ -38,6 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
              squares[playerIndex].classList.remove('player')
              playerIndex -= 1
          }
+         console.log(playerIndex);
        }
        else if (e.keyCode === 40) {
            squares[playerIndex].classList.remove('player')
@@ -54,6 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 playerIndex = parseInt(z)
              }
          }
+         console.log(playerIndex);
 
        }
 
