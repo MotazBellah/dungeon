@@ -22,6 +22,10 @@
                 background-color: blue;
             }
 
+            .solve {
+                background-color: orange;
+            }
+
             .door {
                 background-color: green;
             }
@@ -34,6 +38,7 @@
     <body>
 
         <button type="button" class="start">Start/Restart</button>
+        <button type="button" class="bfs">Find the shortest path using BFS</button>
         <!-- Create a 10 X 10 grid -->
         <div class="grid">
             <div></div>
@@ -147,5 +152,6 @@
 
         </script>
         <script src="{{url_for('static', filename='app.js')}}"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     </body>
 </html>

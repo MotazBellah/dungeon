@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Get the squares
     const squares = document.querySelectorAll('.grid div');
     const startBtn = document.querySelector('.start');
+    const bfs = document.querySelector('.bfs');
     // Get the location of the player, door and monster
     let playerIndex = player
     squares[playerIndex].classList.add('player')
@@ -49,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
            squares[playerIndex].classList.remove('player')
          // Press down
          var corr = playerIndex.toString()
-         console.log(corr);
+         // console.log(corr);
          if (parseInt(corr[0]) < 9 || (corr.length == 1 && parseInt(corr) <= 9)) {
             if (corr.length == 1) {
                 var newCorr = '1' + corr
@@ -73,6 +74,34 @@ document.addEventListener('DOMContentLoaded', () => {
    }
 
    document.addEventListener('keyup', control)
+
+   bfs.addEventListener('click', function() {
+       $.ajax({
+            type: 'post',
+            url: '/solve' ,
+            data: {
+                player: playerIndex,
+                door: door,
+                monster: monster,
+
+            },
+            success: function(response) {
+                console.log(response['intructions']);
+                console.log(response['coordinates']);
+                if ('error' in response) {
+                    alert(response['error'])
+                } else {
+                    const cells = response['coordinates']
+                    for (let i = 0; i < cells.length; i++) {
+                        let index = cells[i]
+                        squares[index].classList.add('solve')
+                    }
+                }
+            }
+        });
+   });
+
+
 
 
 

@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify, request
 import random
 from graph import Node, StackFrontier, QueueFrontier
 
@@ -12,8 +12,28 @@ CELL = [i for i in range(100)]
 def index():
     # Get random locations for player, door and monster
     player, door, monster = random.sample(CELL, 3)
-    print(shortest_path(player, door, monster))
+
     return render_template('index.html', player=player, door=door, monster=monster)
+
+
+@app.route('/solve', methods=['POST'])
+def solve():
+    player = request.form['player']
+    door = request.form['door']
+    monster = request.form['monster']
+
+    short_path = shortest_path(player, door, monster)
+    if short_path:
+        intructions = [i[0] for i in short_path]
+        coordinates = [int(str(i[1][0]) + str(i[1][1])) for i in short_path]
+        print(shortest_path(player, door, monster))
+        print(intructions)
+        print(coordinates)
+        return jsonify({'intructions': intructions,
+                        'coordinates': coordinates,
+                        })
+
+    return jsonify({'error': "There are no paths"})
 
 
 def shortest_path(source, target, monster):
