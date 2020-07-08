@@ -76,6 +76,15 @@ document.addEventListener('DOMContentLoaded', () => {
    document.addEventListener('keyup', control)
 
    bfs.addEventListener('click', function() {
+       let solutions = document.querySelectorAll('.solve');
+       console.log(solutions);
+
+       if (solutions.length) {
+           for (let i = 0; i < solutions.length; i++) {
+               solutions[i].classList.remove('solve')
+           }
+       }
+
        $.ajax({
             type: 'post',
             url: '/solve' ,
@@ -100,9 +109,5 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
    });
-
-
-
-
 
 });
