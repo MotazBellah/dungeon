@@ -12,35 +12,54 @@ document.addEventListener('DOMContentLoaded', () => {
    function control(e) {
 
        if (e.keyCode === 39) {
-           squares[playerIndex].classList.remove('player')
-           playerIndex += 1
+            var z = playerIndex.toString()
+            // console.log(z);
+            if (parseInt(z[1]) < 9 || (z.length == 1 && parseInt(z) < 9)) {
+                squares[playerIndex].classList.remove('player')
+                playerIndex += 1
+            }
        }
        else if (e.keyCode === 38) {
            squares[playerIndex].classList.remove('player')
          // Press up arrow
          var corr = playerIndex.toString()
-         var y = corr[0] - 1
-         var z =  y + corr[1]
-         console.log(z);
-         playerIndex = parseInt(z)
+
+         if (corr.length > 1) {
+             var y = parseInt(corr[0]) - 1
+             var z =  y.toString() + corr[1]
+             playerIndex = parseInt(z)
+         }
+
        }
        else if (e.keyCode === 37) {
-           squares[playerIndex].classList.remove('player')
          // Press left
-         playerIndex -= 1
+         var z = playerIndex.toString()
+         if (parseInt(z[1]) > 0 || (z.length == 1 && parseInt(z) > 0)) {
+             squares[playerIndex].classList.remove('player')
+             playerIndex -= 1
+         }
        }
        else if (e.keyCode === 40) {
            squares[playerIndex].classList.remove('player')
          // Press down
          var corr = playerIndex.toString()
-         var y = parseInt(corr[0]) + 1
-         var z = y.toString() + corr[1]
-         playerIndex = parseInt(z)
+         console.log(corr);
+         if (parseInt(corr[0]) < 9 || (corr.length == 1 && parseInt(corr) <= 9)) {
+            if (corr.length == 1) {
+                var newCorr = '1' + corr
+                playerIndex = parseInt(newCorr)
+            } else {
+                var y = parseInt(corr[0]) + 1
+                var z = y.toString() + corr[1]
+                playerIndex = parseInt(z)
+             }
+         }
+
        }
 
        squares[playerIndex].classList.add('player')
 
-       console.log(playerIndex);
+       // console.log(playerIndex);
 
    }
 
