@@ -13,14 +13,14 @@ def index():
     # Get random locations for player, door and monster
     (player, door, monster, monster2, monster3,
     monster4, monster5, monster6, monster7,
-    monster8, monster9) = random.sample(CELL, 11)
+    monster8, monster9, monster10) = random.sample(CELL, 12)
 
     return render_template('index.html', player=player, door=door,
                             monster=monster, monster2=monster2,
                             monster3=monster3, monster4=monster4,
                             monster5=monster5, monster6=monster6,
                             monster7=monster7, monster8=monster8,
-                            monster9=monster9,)
+                            monster9=monster9, monster10=monster10,)
 
 
 @app.route('/solve', methods=['POST'])
@@ -36,10 +36,11 @@ def solve():
     monster7 = request.form['monster7']
     monster8 = request.form['monster8']
     monster9 = request.form['monster9']
+    monster10 = request.form['monster10']
     # print('/////////////////')
     # print(player, door, [monster, monster2, monster3, monster4, monster5, monster6, monster7, monster8])
 
-    short_path = shortest_path(player, door, [monster, monster2, monster3, monster4, monster5, monster6, monster7, monster8, monster9])
+    short_path = shortest_path(player, door, [monster, monster2, monster3, monster4, monster5, monster6, monster7, monster8, monster9, monster10])
     if short_path:
         intructions = [i[0] for i in short_path]
         coordinates = [int(str(i[1][0]) + str(i[1][1])) for i in short_path]
