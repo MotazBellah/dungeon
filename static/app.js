@@ -8,7 +8,15 @@ document.addEventListener('DOMContentLoaded', () => {
     squares[playerIndex].classList.add('player')
     squares[door].classList.add('door')
     squares[monster].classList.add('monster')
-
+    squares[monster2].classList.add('monster')
+    squares[monster3].classList.add('monster')
+    squares[monster4].classList.add('monster')
+    squares[monster5].classList.add('monster')
+    squares[monster6].classList.add('monster')
+    squares[monster7].classList.add('monster')
+    squares[monster8].classList.add('monster')
+    console.log(monster);
+    console.log(monster2);
 
    function control(e) {
 
@@ -92,6 +100,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 player: playerIndex,
                 door: door,
                 monster: monster,
+                monster2: monster2,
+                monster3: monster3,
+                monster4: monster4,
+                monster5: monster5,
+                monster6: monster6,
+                monster7: monster7,
+                monster8: monster8,
 
             },
             success: function(response) {

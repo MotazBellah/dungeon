@@ -11,9 +11,13 @@ CELL = [i for i in range(100)]
 @app.route('/')
 def index():
     # Get random locations for player, door and monster
-    player, door, monster = random.sample(CELL, 3)
+    player, door, monster, monster2, monster3, monster4, monster5, monster6, monster7, monster8 = random.sample(CELL, 10)
 
-    return render_template('index.html', player=player, door=door, monster=monster)
+    return render_template('index.html', player=player, door=door,
+                            monster=monster, monster2=monster2,
+                            monster3=monster3, monster4=monster4,
+                            monster5=monster5, monster6=monster6,
+                            monster7=monster7, monster8=monster8,)
 
 
 @app.route('/solve', methods=['POST'])
@@ -21,8 +25,17 @@ def solve():
     player = request.form['player']
     door = request.form['door']
     monster = request.form['monster']
+    monster2 = request.form['monster2']
+    monster3 = request.form['monster3']
+    monster4 = request.form['monster4']
+    monster5 = request.form['monster5']
+    monster6 = request.form['monster6']
+    monster7 = request.form['monster7']
+    monster8 = request.form['monster8']
+    print('/////////////////')
+    print(player, door, [monster, monster2, monster3, monster4, monster5, monster6, monster7, monster8])
 
-    short_path = shortest_path(player, door, monster)
+    short_path = shortest_path(player, door, [monster, monster2, monster3, monster4, monster5, monster6, monster7, monster8])
     if short_path:
         intructions = [i[0] for i in short_path]
         coordinates = [int(str(i[1][0]) + str(i[1][1])) for i in short_path]
@@ -84,20 +97,18 @@ def shortest_path(source, target, monster):
                 frontier.add(child)
 
 
-def neighbors(state, monster):
-    monster = str(monster)
-    if len(monster) == 1:
-        monster = '0' + monster
+def neighbors(state, monsters):
+    monster_list = []
+    for i in monsters:
+        monster = str(i)
+        if len(i) == 1:
+            monster = '0' + i
+        row_mons, col_mons = tuple(monster)
+        x_mons, y_mons = int(row_mons), int(col_mons)
+        monster_list.append((x_mons, y_mons))
 
-    row_mons, col_mons = tuple(monster)
-    x_mons, y_mons = int(row_mons), int(col_mons)
+    print(monster_list)
 
-    # state = str(state)
-    # if len(state) == 1:
-    #     state = '0' + state
-    # print(state)
-    # row, col = tuple(state)
-    # x, y = int(row), int(col)
     x, y = state
 
     candidates = [
@@ -107,9 +118,10 @@ def neighbors(state, monster):
             ("down", (x + 1, y)),
         ]
     neighbors_cells = set()
-
+    # print(x_mons, y_mons)
+    # print(state)
     for action, (r,c) in candidates:
-        if 0 <= r < 9 and 0 <= c < 9 and (r, c) != (x_mons, y_mons):
+        if 0 <= r < 9 and 0 <= c < 9 and (r, c) not in monster_list:
             neighbors_cells.add((action, (r,c)))
 
     return neighbors_cells
