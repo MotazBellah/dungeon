@@ -6,32 +6,39 @@
         <title>Dungeon</title>
         <style media="screen">
             .grid {
-                width: 600px;
-                height: 600px;
+                width: 700px;
+                height: 700px;
                 display: flex;
                 flex-wrap: wrap;
                 border-style: solid;
             }
 
             .grid div {
-                width: 60px;
-                height: 60px;
+                width: 70px;
+                height: 70px;
             }
 
             .solve {
-                background-color: orange;
-            }
-
-            .player {
-                background-color: blue;
-            }
-
-            .door {
                 background-color: green;
             }
 
+            .player {
+                /* background-color: blue; */
+                background-image: url('static/img/player.jpg');
+                background-size: cover;
+            }
+
+            .door {
+                /* background-color: green; */
+                background-image: url('static/img/door.jpg');
+                background-size: cover;
+            }
+
             .monster {
-                background-color: red;
+                background-image: url('static/img/dragon.png');
+                background-size: cover;
+                /* background-color: red; */
+
             }
         </style>
     </head>
