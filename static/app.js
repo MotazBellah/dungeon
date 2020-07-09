@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     squares[monster8].classList.add('monster')
     squares[monster9].classList.add('monster')
     squares[monster10].classList.add('monster')
+    squares[monster11].classList.add('monster')
     console.log(monster);
     console.log(monster2);
 
@@ -111,6 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 monster8: monster8,
                 monster9: monster9,
                 monster10: monster10,
+                monster11: monster11,
 
             },
             success: function(response) {
