@@ -11,44 +11,27 @@ CELL = [i for i in range(100)]
 @app.route('/')
 def index():
     # Get random locations for player, door and monster
-    (player, door, monster, monster2, monster3,
-    monster4, monster5, monster6, monster7,
-    monster8, monster9, monster10, monster11) = random.sample(CELL, 13)
+    player, door, *monsters = random.sample(CELL, 14)
 
-    return render_template('index.html', player=player, door=door,
-                            monster=monster, monster2=monster2,
-                            monster3=monster3, monster4=monster4,
-                            monster5=monster5, monster6=monster6,
-                            monster7=monster7, monster8=monster8,
-                            monster9=monster9, monster10=monster10,
-                            monster11=monster11,)
+    return render_template('index.html', player=player, door=door, monsters=monsters,  monsters1=monsters)
 
 
 @app.route('/solve', methods=['POST'])
 def solve():
     player = request.form['player']
     door = request.form['door']
-    monster = request.form['monster']
-    monster2 = request.form['monster2']
-    monster3 = request.form['monster3']
-    monster4 = request.form['monster4']
-    monster5 = request.form['monster5']
-    monster6 = request.form['monster6']
-    monster7 = request.form['monster7']
-    monster8 = request.form['monster8']
-    monster9 = request.form['monster9']
-    monster10 = request.form['monster10']
-    monster11 = request.form['monster11']
+    monsters = request.form['monsters'].split(',')
     # print('/////////////////')
-    # print(player, door, [monster, monster2, monster3, monster4, monster5, monster6, monster7, monster8])
+    # print(monsters.split(','))
+    # print(type(monsters.split(',')))
 
-    short_path = shortest_path(player, door, [monster, monster2, monster3, monster4, monster5, monster6, monster7, monster8, monster9, monster10, monster11])
+    short_path = shortest_path(player, door, monsters)
     if short_path:
         intructions = [i[0] for i in short_path]
         coordinates = [int(str(i[1][0]) + str(i[1][1])) for i in short_path]
-        print(shortest_path(player, door, monster))
-        print(intructions)
-        print(coordinates)
+        # print(shortest_path(player, door, monster))
+        # print(intructions)
+        # print(coordinates)
         return jsonify({'intructions': intructions,
                         'coordinates': coordinates,
                         })
@@ -72,8 +55,8 @@ def shortest_path(source, target, monster):
     row_trgt, col_trgt = tuple(target)
     x_trgt, y_trgt = int(row_trgt), int(col_trgt)
 
-    print(x_trgt, y_trgt)
-    print(x_src, y_src)
+    # print(x_trgt, y_trgt)
+    # print(x_src, y_src)
 
     start = Node(state=(x_src, y_src), parent=None, action=None)
     frontier = QueueFrontier()
@@ -103,7 +86,7 @@ def shortest_path(source, target, monster):
 
         for action, state in neighbors(node.state, monster):
             if not frontier.contains_state(state) and state not in explored:
-                print(state)
+                # print(state)
                 child = Node(state=state, parent=node, action=action)
                 frontier.add(child)
 
@@ -111,10 +94,9 @@ def shortest_path(source, target, monster):
 def neighbors(state, monsters):
     monster_list = []
     for i in monsters:
-        monster = str(i)
         if len(i) == 1:
-            monster = '0' + i
-        row_mons, col_mons = tuple(monster)
+            i = '0' + i
+        row_mons, col_mons = tuple(i)
         x_mons, y_mons = int(row_mons), int(col_mons)
         monster_list.append((x_mons, y_mons))
 

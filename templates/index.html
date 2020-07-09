@@ -6,16 +6,16 @@
         <title>Dungeon</title>
         <style media="screen">
             .grid {
-                width: 700px;
-                height: 700px;
+                width: 600px;
+                height:600px;
                 display: flex;
                 flex-wrap: wrap;
                 border-style: solid;
             }
 
             .grid div {
-                width: 70px;
-                height: 70px;
+                width: 60px;
+                height: 60px;
             }
 
             .solve {
@@ -39,6 +39,12 @@
                 background-size: cover;
                 /* background-color: red; */
 
+            }
+
+            .fire {
+                background-image: url('static/img/fire.jpg');
+                background-size: cover;
+                /* background-color: red; */
             }
         </style>
     </head>
@@ -155,18 +161,7 @@
         <script type="text/javascript">
             const player = `{{ player }}`;
             const door = `{{ door }}`;
-            const monster = `{{ monster }}`;
-            const monster2 = `{{ monster2 }}`;
-            const monster3 = `{{ monster3 }}`;
-            const monster4 = `{{ monster4 }}`;
-            const monster5 = `{{ monster5 }}`;
-            const monster6 = `{{ monster6 }}`;
-            const monster7 = `{{ monster7 }}`;
-            const monster8 = `{{ monster8 }}`;
-            const monster9 = `{{ monster9 }}`;
-            const monster10 = `{{ monster10 }}`;
-            const monster11 = `{{ monster11 }}`;
-
+            const monsters = {{ monsters }};
         </script>
         <script src="{{url_for('static', filename='app.js')}}"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
