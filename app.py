@@ -8,7 +8,7 @@ app.secret_key = 'super secret key'
 # Create a cells
 CELL = [i for i in range(100)]
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
     # Get random locations for player, door and monster
     player, door, *monsters = random.sample(CELL, 14)

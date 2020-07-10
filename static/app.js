@@ -22,8 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
        if (e.keyCode === 39) {
             var z = playerIndex.toString()
-            // console.log(squares[playerIndex]);
-            // console.log(z);
             squares[playerIndex].classList.remove('player')
             if (parseInt(z[1]) < 9 || (z.length == 1 && parseInt(z) < 9)) {
 
@@ -77,6 +75,14 @@ document.addEventListener('DOMContentLoaded', () => {
            squares[playerIndex].classList.add('player')
        }
 
+       if (monsters.includes(playerIndex)) {
+           alert('You Lose')
+       }
+
+       if (playerIndex == door) {
+           alert('You Win')
+       }
+
        // console.log(playerIndex);
 
    }
@@ -114,6 +120,18 @@ document.addEventListener('DOMContentLoaded', () => {
                         squares[index].classList.add('solve')
                     }
                 }
+            }
+        });
+   });
+
+   startBtn.addEventListener('click', function() {
+       $.ajax({
+            type: 'get',
+            url: '/' ,
+            data: {
+            },
+            success: function(response) {
+                window.location.href = '/'
             }
         });
    });
