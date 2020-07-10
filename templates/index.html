@@ -7,8 +7,9 @@
         <style media="screen">
 
             .insruction {
-                float: right;
+                float: left;
                 width: 400px;
+                margin-right: 2em;
             }
 
             button {
@@ -26,6 +27,7 @@
             button:hover {
                 background-color: #4095c6;
             }
+
 
             .grid {
                 width: 600px;
@@ -72,6 +74,16 @@
     </head>
     <body>
         <div class="insruction">
+            <div class="play">
+                <h4>How to play:</h4>
+                <ul>
+                    <li>You are allowed to move up, down, left ,and right.</li>
+                    <li>Try to find the escape door without being eaten by one of the monsters.</li>
+                    <li>The monsters and fire traps are hidden, and you have to guess the correct direction.</li>
+                    <li>Using the BFS algorithm you can find the shortest path to the door.</li>
+                    <li>Using the DFS algorithm you can find the path to the door.</li>
+                </ul>
+            </div>
             <button type="button" class="start">Start/Restart</button>
             <button type="button" class="bfs">Find the shortest path using BFS</button>
         </div>
