@@ -11,7 +11,7 @@ CELL = [i for i in range(100)]
 @app.route('/', methods=['GET', 'POST'])
 def index():
     # Get random locations for player, door and monster
-    player, door, *monsters = random.sample(CELL, 14)
+    player, door, *monsters = random.sample(CELL, 16)
 
     return render_template('index.html', player=player, door=door, monsters=monsters,  monsters1=monsters)
 

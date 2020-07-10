@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
        let fires = document.querySelectorAll('.fire')
 
        if (status === false) {
-           console.log('v');
+
            document.querySelector('.door').style.visibility = 'hidden';
 
            for (let i = 0; i < monsters.length; i++) {
@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
                }
 
        } else {
-           console.log('vjk');
+           
            document.querySelector('.door').style.visibility  = 'visible';
 
            for (let i = 0; i < monsters.length; i++) {
@@ -175,6 +175,12 @@ document.addEventListener('DOMContentLoaded', () => {
                }
        }
    }
+
+   document.querySelector('.show').addEventListener('click', function () {
+       display_all = true
+       hide_display(display_all)
+   })
+
    hide_display(gameFinished)
 
 });
