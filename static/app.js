@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
    bfs.addEventListener('click', function() {
-       gameFinished = true
+       // gameFinished = true
        let solutions = document.querySelectorAll('.solve');
        console.log(solutions);
 
@@ -112,6 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
                solutions[i].classList.remove('solve')
            }
        }
+       document.querySelector('.action').innerHTML = ''
 
        $.ajax({
             type: 'post',
@@ -154,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         });
-        hide_display(gameFinished)
+        hide_display(true)
    });
 
    startBtn.addEventListener('click', function() {
@@ -195,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
    }
 
    document.querySelector('.show').addEventListener('click', function () {
-       display_all = true
+       var display_all = true
        hide_display(display_all)
    })
 
