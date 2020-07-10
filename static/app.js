@@ -133,6 +133,24 @@ document.addEventListener('DOMContentLoaded', () => {
                         let index = cells[i]
                         squares[index].classList.add('solve')
                     }
+                    const actionDiv = document.querySelector('.action')
+                    const p = document.createElement('p')
+                    p.innerHTML = "Follow the following path to reach to the door:"
+
+                    const pAction = document.createElement('p')
+                    const actions = response['intructions']
+                    for (var i = 0; i < actions.length; i++) {
+                        if (i == actions.length - 1 ) {
+                            pAction.innerHTML += actions[i]
+                        } else {
+                            pAction.innerHTML += actions[i] + ' --> '
+                        }
+
+                    }
+
+                    actionDiv.appendChild(p)
+                    actionDiv.appendChild(pAction)
+
                 }
             }
         });
@@ -166,7 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
                }
 
        } else {
-           
+
            document.querySelector('.door').style.visibility  = 'visible';
 
            for (let i = 0; i < monsters.length; i++) {
