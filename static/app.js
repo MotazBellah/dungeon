@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const squares = document.querySelectorAll('.grid div');
     const startBtn = document.querySelector('.start');
     const bfs = document.querySelector('.bfs');
+    const searchDiv = document.querySelector('.search-type');
     // Declare the gameFinished boolean vairable
     let gameFinished = false
     // Get the location of the player, door
@@ -95,67 +96,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
    // Once the user use the arrows call the control
     document.addEventListener('keyup', control)
-    // Added click event to bfs to let the user find the shortest path
-   bfs.addEventListener('click', function() {
-       // Get all green cells(path)
-       let solutions = document.querySelectorAll('.solve');
-       // Remove the green cells from the grid
-        if (solutions.length) {
-           for (let i = 0; i < solutions.length; i++) {
-               solutions[i].classList.remove('solve')
-           }
-       }
-       // Reset the area of instruction
-       document.querySelector('.action').innerHTML = ''
-       // Send post request to solve route to find the path
-       // Send the playerIndex and door and monsters as a data to the route
-       // If the request success, get the response and parse it to get the data
-       $.ajax({
-            type: 'post',
-            url: '/solve' ,
-            data: {
-                player: playerIndex,
-                door: door,
-                monsters: monsters.toString(),
-
-            },
-            success: function(response) {;
-                if ('error' in response) {
-                    alert(response['error'])
-                } else {
-                    // Get the coordinates
-                    // Loop through it and add solve class,
-                    // so it would appear as a green path on the grid
-                    const cells = response['coordinates']
-                    for (let i = 0; i < cells.length; i++) {
-                        let index = cells[i]
-                        squares[index].classList.add('solve')
-                    }
-                    // Get the action area
-                    const actionDiv = document.querySelector('.action')
-                    const p = document.createElement('p')
-                    p.innerHTML = "Follow the following path to reach to the door:"
-                    // Get the moves from the response
-                    // Loop through it and append it to the pragraph element
-                    const pAction = document.createElement('p')
-                    const actions = response['intructions']
-                    for (var i = 0; i < actions.length; i++) {
-                        if (i == actions.length - 1 ) {
-                            pAction.innerHTML += actions[i]
-                        } else {
-                            pAction.innerHTML += actions[i] + ' --> '
-                        }
-
-                    }
-                    // Append to the parant to display them to the user
-                    actionDiv.appendChild(p)
-                    actionDiv.appendChild(pAction)
-
-                }
-            }
-        });
-        hide_display(true)
-   });
 
    // Reload the game, once click on start/restart button
    startBtn.addEventListener('click', function() {
@@ -201,6 +141,78 @@ document.addEventListener('DOMContentLoaded', () => {
    document.querySelector('.show').addEventListener('click', function () {
        var display_all = true
        hide_display(display_all)
+   })
+
+   // Handle search type
+   searchDiv.addEventListener('click', function (event) {
+       // Make the default type to be BFS
+       let searchType = 'bfs'
+       if (event.target.id == 'dfs') {
+           searchType = 'dfs'
+       }
+
+        // Get all green cells(path)
+        let solutions = document.querySelectorAll('.solve');
+        // Remove the green cells from the grid
+         if (solutions.length) {
+            for (let i = 0; i < solutions.length; i++) {
+                solutions[i].classList.remove('solve')
+            }
+        }
+
+     // Reset the area of instruction
+      document.querySelector('.action').innerHTML = ''
+      // Send post request to solve route to find the path
+      // Send the playerIndex and door and monsters as a data to the route
+      // If the request success, get the response and parse it to get the data
+       $.ajax({
+           type: 'post',
+           url: '/solve' ,
+           data: {
+               player: playerIndex,
+               door: door,
+               monsters: monsters.toString(),
+               type: searchType,
+
+           },
+           success: function(response) {;
+               if ('error' in response) {
+                   alert(response['error'])
+               } else {
+                   // Get the coordinates
+                   // Loop through it and add solve class,
+                   // so it would appear as a green path on the grid
+                   const cells = response['coordinates']
+                   for (let i = 0; i < cells.length; i++) {
+                       let index = cells[i]
+                       squares[index].classList.add('solve')
+                   }
+                   // Get the action area
+                   const actionDiv = document.querySelector('.action')
+                   const p = document.createElement('p')
+                   p.innerHTML = "Follow the following path to reach to the door:"
+                   // Get the moves from the response
+                   // Loop through it and append it to the pragraph element
+                   const pAction = document.createElement('p')
+                   const actions = response['intructions']
+                   for (var i = 0; i < actions.length; i++) {
+                       if (i == actions.length - 1 ) {
+                           pAction.innerHTML += actions[i]
+                       } else {
+                           pAction.innerHTML += actions[i] + ' --> '
+                       }
+
+                   }
+                   // Append to the parant to display them to the user
+                   actionDiv.appendChild(p)
+                   actionDiv.appendChild(pAction)
+
+               }
+           }
+       });
+
+       hide_display(true)
+       // console.log();
    })
 
    hide_display(gameFinished)

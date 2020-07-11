@@ -24,7 +24,10 @@ def solve():
     # Get the location of player, door and list of monsters
     player = request.form['player']
     door = request.form['door']
+    type = request.form['type']
     monsters = request.form['monsters'].split(',')
+    print('//////')
+    print(type)
     # Call short_path function to get the cells and moves
     short_path = shortest_path(player, door, monsters)
     # If path found,
