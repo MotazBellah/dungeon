@@ -22,14 +22,13 @@ def index():
 @app.route('/solve', methods=['POST'])
 def solve():
     # Get the location of player, door and list of monsters
+    # Get the type of search
     player = request.form['player']
     door = request.form['door']
     type = request.form['type']
     monsters = request.form['monsters'].split(',')
-    print('//////')
-    print(type)
     # Call short_path function to get the cells and moves
-    short_path = shortest_path(player, door, monsters)
+    short_path = shortest_path(player, door, monsters, type)
     # If path found,
     # Send a the coordinates and insructions in json formate
     if short_path:
@@ -43,11 +42,11 @@ def solve():
     return jsonify({'error': "There are no paths"})
 
 
-def shortest_path(source, target, monster):
+def shortest_path(source, target, monster, search_type):
     '''
     Determine the shortest path between the source and target
     and avoid  the monsters
-    Input: source(int), target(int), monsters(list of int)
+    Input: source(int), target(int), monsters(list of int), search_type(str)
     output: None or List of tuples of actions(moves) and cells
     '''
     # Convert the source to string in order to add `0`
@@ -70,8 +69,14 @@ def shortest_path(source, target, monster):
 
     # Create a first node to be the source
     start = Node(state=(x_src, y_src), parent=None, action=None)
-    # Use BFS so, create a QueueFrontier instance
-    frontier = QueueFrontier()
+    # Use DFS so, create a stackFrontier instance
+    print('/////')
+    print(search_type)
+    if search_type == 'dfs':
+        frontier = StackFrontier()
+    else:
+        # Use BFS so, create a QueueFrontier instance
+        frontier = QueueFrontier()
     # Added the first node in the queue
     frontier.add(start)
 
