@@ -2,6 +2,8 @@
 
 Dungeon features a map with dragons and fire traps. Player moves around the map seeking to find the door and escape from the dungeon without being eaten with one of the dragons or fall into one of the fire traps
 
+Using the power of AI can help the player by providing him the path to the door using the DFS algorithm or the shortest path using the BFS algorithm
+
 # Code
 
 - This project is written in python 3.
