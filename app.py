@@ -1,6 +1,7 @@
 from flask import Flask, render_template, jsonify, request, url_for
 import random
 from graph import Node, StackFrontier, QueueFrontier
+import os
 
 app = Flask(__name__)
 app.secret_key = 'super secret key'
@@ -156,4 +157,5 @@ def neighbors(state, monsters):
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
+    PORT = int(os.environ.get('PORT', 5000))
+    app.run(debug=True, host='0.0.0.0', port=PORT)
