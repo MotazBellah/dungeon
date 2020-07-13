@@ -71,8 +71,6 @@ def shortest_path(source, target, monster, search_type):
     # Create a first node to be the source
     start = Node(state=(x_src, y_src), parent=None, action=None)
     # Use DFS so, create a stackFrontier instance
-    print('/////')
-    print(search_type)
     if search_type == 'dfs':
         frontier = StackFrontier()
     else:
@@ -158,4 +156,4 @@ def neighbors(state, monsters):
 
 if __name__ == '__main__':
     PORT = int(os.environ.get('PORT', 5000))
-    app.run(debug=True, host='0.0.0.0', port=PORT)
+    app.run(debug=False, host='0.0.0.0', port=PORT)
